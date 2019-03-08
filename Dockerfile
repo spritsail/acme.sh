@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM spritsail/alpine:3.9
 
 ARG VERSION=master
 
@@ -22,13 +22,14 @@ RUN apk --no-cache add -f \
 VOLUME /acme.sh
 WORKDIR /acme.sh
 
+SHELL ["/bin/sh", "-c"]
+
 ENTRYPOINT \
     set -- "$0" "$@"; \
     if [ "$1" = "daemon" ]; then \
-        trap "echo stop && killall crond && exit 0" SIGTERM SIGINT; \
         # insert a crontab entry to run every hour, starting an hour from now
         echo "$(date +%-M) 0 * * * acme.sh --cron" | tee /dev/stderr | crontab -; \
-        crond && while true; do sleep 1; done; \
+        exec /sbin/tini -- crond -f -d6; \
     else \
         exec -- acme.sh "$@"; \
     fi
