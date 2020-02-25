@@ -1,20 +1,41 @@
-pipeline:
-  build:
-    image: spritsail/docker-build
-    volumes: [ '/var/run/docker.sock:/var/run/docker.sock' ]
+---
+kind: pipeline
+name: default
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: build
+  pull: always
+  image: spritsail/docker-build
+  settings:
     repo: acmesh-dev
 
-  publish:
-    image: spritsail/docker-publish
-    volumes: [ '/var/run/docker.sock:/var/run/docker.sock' ]
-    secrets: [ docker_username, docker_password ]
-    when: { branch: [ master ], event: [ push, tag, deployment ] }
+- name: test
+  pull: never
+  image: acmesh-dev
+  command:
+  - acme.sh
+  - --version
+
+- name: publish
+  pull: always
+  image: spritsail/docker-publish
+  settings:
     from: acmesh-dev
     repo: spritsail/acme.sh
     tags:
-      - 'latest'
+    - latest
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+  when:
+    branch:
+    - master
+    event:
+    - push
 
-  notify:
-    image: spritsail/notify
-    when: { status: [ success, failure ] }
-    secrets: [ webhook_url, notify_token ]
+...
