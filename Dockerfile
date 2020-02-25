@@ -1,4 +1,4 @@
-FROM spritsail/alpine:3.9
+FROM spritsail/alpine:3.11
 
 ARG VERSION=master
 
