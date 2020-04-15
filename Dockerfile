@@ -28,7 +28,7 @@ ENTRYPOINT \
     set -- "$0" "$@"; \
     if [ "$1" = "daemon" ]; then \
         # insert a crontab entry to run every hour, starting an hour from now
-        echo "$(date +%-M) 0 * * * acme.sh --cron" | tee /dev/stderr | crontab -; \
+        echo "$(( $(date +%-M -d 'now') + 1 )) 0 * * * acme.sh --cron" | tee /dev/stderr | crontab -; \
         exec /sbin/tini -- crond -f -d6; \
     else \
         exec -- acme.sh "$@"; \
