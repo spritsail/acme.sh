@@ -1,6 +1,15 @@
 FROM spritsail/alpine:3.16
 
-ARG VERSION=master
+ARG VERSION=3.0.4
+
+LABEL maintainer="Spritsail <acme.sh@spritsail.io>" \
+      org.label-schema.vendor="Spritsail" \
+      org.label-schema.name="acme.sh" \
+      org.label-schema.url="https://github.com/acmesh-official/acme.sh" \
+      org.label-schema.vcs-url="https://github.com/spritsail/acme.sh" \
+      org.label-schema.description="A pure Unix shell script implementing ACME client protocol" \
+      org.label-schema.version=${VERSION} \
+      io.spritsail.version.acme-sh=${VERSION}
 
 ENV LE_WORKING_DIR=/acme.sh \
     _SCRIPT_HOME=/opt/acme.sh
@@ -16,7 +25,7 @@ RUN apk --no-cache add -f \
     && \
     curl -sSL https://github.com/Neilpang/acme.sh/archive/${VERSION}.tar.gz | tar xz --strip-components=1 && \
     chmod 755 ./acme.sh && \
-    rm -rf .github .travis.yml Dockerfile README.md && \
+    rm -rf .github Dockerfile README.md && \
     ln -sfv /opt/acme.sh/acme.sh /usr/local/bin
 
 VOLUME /acme.sh

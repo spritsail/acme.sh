@@ -28,6 +28,7 @@ steps:
     repo: spritsail/acme.sh
     tags:
     - latest
+    - '%label io.spritsail.version.acme-sh | %auto'
     username:
       from_secret: docker_username
     password:
