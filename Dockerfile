@@ -2,13 +2,12 @@ FROM spritsail/alpine:3.17
 
 ARG VERSION=3.0.5
 
-LABEL maintainer="Spritsail <acme.sh@spritsail.io>" \
-      org.label-schema.vendor="Spritsail" \
-      org.label-schema.name="acme.sh" \
-      org.label-schema.url="https://github.com/acmesh-official/acme.sh" \
-      org.label-schema.vcs-url="https://github.com/spritsail/acme.sh" \
-      org.label-schema.description="A pure Unix shell script implementing ACME client protocol" \
-      org.label-schema.version=${VERSION} \
+LABEL org.opencontainers.image.authors="Spritsail <acme.sh@spritsail.io>" \
+      org.opencontainers.image.title="acme.sh" \
+      org.opencontainers.image.url="https://github.com/acmesh-official/acme.sh" \
+      org.opencontainers.image.source="https://github.com/spritsail/acme.sh" \
+      org.opencontainers.image.description="A pure Unix shell script implementing ACME client protocol" \
+      org.opencontainers.image.version=${VERSION} \
       io.spritsail.version.acme-sh=${VERSION}
 
 ENV LE_WORKING_DIR=/acme.sh \
