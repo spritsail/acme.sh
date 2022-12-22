@@ -1,6 +1,6 @@
-FROM spritsail/alpine:3.16
+FROM spritsail/alpine:3.17
 
-ARG VERSION=3.0.4
+ARG VERSION=3.0.5
 
 LABEL maintainer="Spritsail <acme.sh@spritsail.io>" \
       org.label-schema.vendor="Spritsail" \
