@@ -10,8 +10,6 @@ LABEL org.opencontainers.image.authors="Spritsail <acme.sh@spritsail.io>" \
       org.opencontainers.image.version=${VERSION} \
       io.spritsail.version.acme-sh=${VERSION}
 
-ENV LE_WORKING_DIR=/acme.sh
-
 WORKDIR /var/lib/acmesh
 
 RUN apk --no-cache add -f \
@@ -28,8 +26,9 @@ RUN apk --no-cache add -f \
     ln -sfv $PWD/acme.sh /usr/bin/acme.sh && \
     ln -sfv $PWD/acme.sh /usr/bin/acme
 
-VOLUME ${LE_WORKING_DIR}
-WORKDIR ${LE_WORKING_DIR}
+ENV CERT_HOME=/acme.sh
+VOLUME ${CERT_HOME}
+WORKDIR ${CERT_HOME}
 
 SHELL ["/bin/sh", "-c"]
 
