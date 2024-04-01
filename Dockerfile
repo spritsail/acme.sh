@@ -38,6 +38,8 @@ ENTRYPOINT \
     if [ "$1" = "daemon" ]; then \
         # insert a crontab entry to run every hour, starting an hour from now
         echo "$(( $(date +%-M -d 'now') + 1 )) 0 * * * acme.sh --cron" | tee /dev/stderr | crontab -; \
+        # Run a renew immediately on container start
+        acme.sh --cron; \
         exec /sbin/tini -- crond -f -d6; \
     else \
         exec -- acme.sh "$@"; \
