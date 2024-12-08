@@ -1,6 +1,6 @@
 FROM spritsail/alpine:3.21
 
-ARG VERSION=3.0.7
+ARG VERSION=3.1.0
 
 LABEL org.opencontainers.image.authors="Spritsail <acme.sh@spritsail.io>" \
       org.opencontainers.image.title="acme.sh" \
