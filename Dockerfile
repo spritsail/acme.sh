@@ -1,4 +1,4 @@
-FROM spritsail/alpine:3.20
+FROM spritsail/alpine:3.21
 
 ARG VERSION=3.0.7
 
